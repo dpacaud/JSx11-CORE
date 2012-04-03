@@ -6,9 +6,9 @@ var service = "system-auth";
 
 var is_a;
 
-exports.checkAuth = function(user,password){
+exports.checkAuth = function(user,password,callback){
     unixlib.pamauth(service, user, password, function(result) {
         console.log("Username: " + user + ", password: " + password + ", result: " + result);
-        is_a = result;
+        return callback(result);
     });
 };

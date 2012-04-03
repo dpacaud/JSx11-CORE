@@ -42,8 +42,8 @@ app.get('/login', function(req,res) {
 
 // auth try
 app.post('/auth', function (req, res) {
-    console.log(auth.checkAuth(req.body.username,req.body.password));
-    res.send("Authentication status : " + auth.is_auth);
+
+    auth.checkAuth(req.body.username,req.body.password, function(result){res.send("Authentication status : " + result); });
 });
 
 
