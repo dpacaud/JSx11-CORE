@@ -2,9 +2,13 @@ var unixlib = require("unixlib");
 
 // Change accordingly or write your own.
 var service = "system-auth";
-var username = "dpacaud";
-var password = "";
 
-unixlib.pamauth(service, username, password, function(result) {
-    console.log("Username: " + username + ", password: " + password + ", result: " + result);
-});
+
+var is_a;
+
+exports.checkAuth = function(user,password){
+    unixlib.pamauth(service, user, password, function(result) {
+        console.log("Username: " + user + ", password: " + password + ", result: " + result);
+        is_a = result;
+    });
+};

@@ -3,12 +3,15 @@ var application_root = __dirname,
     express = require("express"),
     fs = require("fs");
     path = require("path"),
-    ls = require("./modules/terminal/ls");
+    ls = require("./modules/terminal/ls"),
+    auth = require("./modules/auth");
+
 
 var options = {
-    key: fs.readFileSync('/home/dpacaud/certifs/key.pem'),
-    cert: fs.readFileSync('/home/dpacaud/certifs/certificate.pem')
-}
+    key: fs.readFileSync('/usr/local/node/certificates/key.pem'),
+    cert: fs.readFileSync('/usr/local/node/certificates/certificate.pem')
+};
+
 
 var app = express.createServer(options);
 
@@ -22,14 +25,27 @@ app.configure(function () {
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+// This is a test url, to check that service is up and running
 app.get('/api', function (req, res) {
     res.send('Ecomm API is running');
 });
 
+//First attempt to ls /
 app.get('/ls', function (req, res) {
     res.send(ls.getFiles());
 });
 
-// Launch server
+app.get('/login', function(req,res) {
+    var toto = "<form action='auth' method='post'> username : <input type='text' name='username' />password : <input type='password' name='password'><input type='submit' value='go'></form>";
+    res.send(toto);
+});
 
+// auth try
+app.post('/auth', function (req, res) {
+    console.log(auth.checkAuth(req.body.username,req.body.password));
+    res.send("Authentication status : " + auth.is_auth);
+});
+
+
+// Launch server on port 4242
 app.listen(4242);
