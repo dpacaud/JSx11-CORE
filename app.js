@@ -1,3 +1,4 @@
+require('nodetime').profile();
 var application_root = __dirname,
     express = require("express"),
     fs = require("fs");
