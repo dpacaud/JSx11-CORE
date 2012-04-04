@@ -12,7 +12,7 @@ var options = {
     cert: fs.readFileSync('/usr/local/node/certificates/certificate.pem')
 };
 
-
+var process_group = "", process_uid = "";
 var app = express.createServer(options);
 
 
@@ -24,7 +24,7 @@ app.configure(function () {
     app.use(app.router);
     app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
-
+console.log("Process gid : "+ process.getgid() + "\nProcess UID : "+process.getuid());
 // This is a test url, to check that service is up and running
 app.get('/api', function (req, res) {
     res.send('Ecomm API is running');
@@ -42,7 +42,6 @@ app.get('/login', function(req,res) {
 
 // auth try
 app.post('/auth', function (req, res) {
-
     auth.checkAuth(req.body.username,req.body.password, function(result){res.send("Authentication status : " + result); });
 });
 
