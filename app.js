@@ -36,8 +36,8 @@ app.get('/ls', function (req, res) {
 });
 
 app.get('/login', function(req,res) {
-    var toto = "<form action='auth' method='post'> username : <input type='text' name='username' />password : <input type='password' name='password'><input type='submit' value='go'></form>";
-    res.send(toto);
+    var page = "<form action='auth' method='post'> username : <input type='text' name='username' />password : <input type='password' name='password'><input type='submit' value='go'></form>";
+    res.send(page);
 });
 
 // auth try
